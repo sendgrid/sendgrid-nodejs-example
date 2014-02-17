@@ -10,4 +10,5 @@ cd sendgrid-nodejs-example
 cp .env.example .env # change the values in .env
 npm install
 node sendgrid-nodejs-example.js
+node smtp-nodejs-example.js
 ```

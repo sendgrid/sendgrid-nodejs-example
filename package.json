@@ -9,6 +9,8 @@
   "description": "Example script using node.js library",
   "dependencies": {
     "dotenv": "0.2.0",
-    "sendgrid": "1.0.1"
+    "nodemailer": "0.6.0",
+    "sendgrid": "1.0.1",
+    "smtpapi": "0.0.1"
   }
 }
