@@ -9,7 +9,7 @@ var sendgrid_password   = process.env.SENDGRID_PASSWORD;
 var to                  = process.env.TO;
 
 // Build the smtpapi header
-var header = new smtpapi.Header();
+var header = new smtpapi();
 header.addSubstitution('%how%', ['Owl']);
 
 // Add the smtpapi header to the general headers
@@ -25,14 +25,18 @@ var settings  = {
     pass: sendgrid_password 
   }
 };
-var smtpTransport = nodemailer.createTransport("SMTP", settings);
+var smtpTransport = nodemailer.createTransport(settings);
 
 var mailOptions = {
   from:     to,
   to:       to,
   subject:  "[smtp-nodejs-example] Owl",
   text:     "%how% are you doing?",
-  html:     "%how% are you doing?",
+  html:     "<strong>%how% are you doing?</strong>",
+  attachments: { 
+    path: './gif.gif',
+    filename: 'owl.gif' 
+  },
   headers:  headers
 }
 
@@ -41,7 +45,14 @@ smtpTransport.sendMail(mailOptions, function(error, response) {
 
   if (error) { 
     console.log(error);
-  } else {
-    console.log("Message sent: " + response.message);
+  } 
+  else {
+      console.log("Message sent: ");
+      console.log("-------------------------");
+      console.log("Accepted: " + response.accepted);
+      console.log("Rejected: " + response.rejected);
+      console.log("Response: " + response.response);
+      console.log("Envelope: " + JSON.stringify(response.envelope));
+      console.log("MessageId: " + response.messageId);
   }
 });
